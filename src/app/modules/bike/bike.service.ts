@@ -22,7 +22,7 @@ const getUpdatedBikeFromDB = async (id: string, payload: Partial<TBike>) => {
 }
 
 const deletedFromDB = async (id: string) => {
-    const result = await BikeModel.deleteOne({ _id: id })
+    const result = await BikeModel.updateOne({ _id: id }, { isAvailable: false })
     console.log(result)
     return result
 }

@@ -5,5 +5,6 @@ export type TBike = {
     cc: number,
     year: number,
     model: string,
-    brand: string
+    brand: string,
+    isAvailable:boolean
 };
