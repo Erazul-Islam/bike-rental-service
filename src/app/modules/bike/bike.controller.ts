@@ -17,6 +17,7 @@ const AddingBike = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllbike = async (req: Request, res: Response) => {
+    console.log(req.user)
 
     try {
         const result = await BikeService.getAllBikeFromDB()
@@ -38,7 +39,6 @@ const getUpdatedBike = async (req: Request, res: Response) => {
 
     try {
         const updatedBike = await BikeService.getUpdatedBikeFromDB(bikeId, updatedData)
-        console.log(updatedBike)
 
         res.status(200).json({
             success: true,

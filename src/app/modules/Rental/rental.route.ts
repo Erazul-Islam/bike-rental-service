@@ -2,15 +2,17 @@ import express from 'express'
 import validateRequest from '../middleWares/validateRequest';
 import { RentalValidation } from './rental.validation';
 import { rentalController } from './rental.controller';
+import authValidation from '../middleWares/auth';
+import { USER_ROLE } from '../user/user.constant';
 
 const router = express.Router();
 
 router.post(
-    '/create',
-    validateRequest(RentalValidation.RentalValidationSchema),
+    '/',
+    validateRequest(RentalValidation.RentalValidationSchema),authValidation(USER_ROLE.user),
     rentalController.createRental
 );
 
-export const rentalRoute = {
-    router
-}
+router.put('/:rentalId/return', authValidation(USER_ROLE.admin), rentalController.getUpdatedRental)
+
+export const rentalRoute = router

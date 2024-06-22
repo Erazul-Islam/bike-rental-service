@@ -12,6 +12,7 @@ const userSchema = new Schema<TUser, UserModel>(
         password: {
             type: String,
             required: true,
+            select:0
         },
         role: {
             type: String,
@@ -59,5 +60,13 @@ userSchema.pre('save', async function (next) {
 //     doc.password = '';
 //     next();
 // });
+
+userSchema.statics.isUSerExistByCustomEmial = async function (email: string) {
+    return await User.findOne({ email }).select('+password')
+}
+
+userSchema.statics.isPasswordMatched = async function (plainTextPass: string, hashedPass: string) {
+    return await bcrypt.compare(plainTextPass, hashedPass)
+}
 
 export const User = model<TUser, UserModel>('User', userSchema);

@@ -5,31 +5,33 @@ import { TRental } from "./rental.interface";
 const RentalSchema = new Schema<TRental>(
     {
         bikeId: {
-            type: Schema.Types.ObjectId,
+            type: String,
             required: true,
-            ref: "Bike"
         },
         userId: {
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: 'User'
+            type: String,
+            ref: 'User',
+            required:false
         },
         startTime: {
             type: Date,
-            required: true
+            required:false
         },
         returnTime: {
-            type: null
+            type: Date,
+            required:false,
+            default:null
         },
         totalCost: {
             type: Number,
-            required: true
+            required:false,
+            default:0
         },
         isReturned: {
             type: Boolean,
+            required:false,
             default: false
         }
-
     },
     {
         timestamps: true,

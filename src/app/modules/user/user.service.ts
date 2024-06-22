@@ -7,6 +7,23 @@ const signUp = async (payload: TUser) => {
     return result
 }
 
+const getMyProfile = async (_id: string) => {
+    const query = _id ? { _id } : {}
+    const result = await User.find(query)
+    return result
+}
+
+const getUpdatedUser = async (id: string, payload: Partial<TUser>) => {
+    try {
+        const updatedUser = await User.findOneAndUpdate({ _id: id }, payload, { new: true })
+        return updatedUser
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const userService = {
-    signUp
+    signUp,
+    getMyProfile,
+    getUpdatedUser
 }

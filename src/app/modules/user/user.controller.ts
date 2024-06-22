@@ -15,7 +15,46 @@ const signUpRegistration = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getProfile = async (req: Request, res: Response) => {
+    try {
+        const _id = req.query._id
+
+        const result = await userService.getMyProfile(_id as string);
+        res.status(200).json({
+            success: true,
+            message: "User profile retrieved successfully",
+            data: result,
+        });
+    } catch (error) {
+        res.status(200).json({
+            success: false,
+            message: "Not found",
+            error: error,
+        });
+    }
+};
+
+const getUpdatedUser = async (req: Request, res: Response) => {
+    const id = req.params.id
+    const updatedData = req.body
+
+    try {
+        const updatedUser = await userService.getUpdatedUser(id, updatedData)
+        console.log(updatedUser)
+
+        res.status(200).json({
+            success: true,
+            message: "user updated successfully!",
+            data: updatedUser
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 export const userController = {
-    signUpRegistration
+    signUpRegistration,
+    getProfile,
+    getUpdatedUser
 }
