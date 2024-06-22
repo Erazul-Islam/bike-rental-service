@@ -7,29 +7,29 @@ const RentalSchema = new Schema<TRental>(
         bikeId: {
             type: String,
             required: true,
+            ref: 'Bike'
         },
         userId: {
             type: String,
             ref: 'User',
-            required:false
+            required: false
         },
         startTime: {
-            type: Date,
-            required:false
+            type: String,
+            required: true
         },
         returnTime: {
             type: Date,
-            required:false,
-            default:null
+            default: null
         },
         totalCost: {
             type: Number,
-            required:false,
-            default:0
+            required: false,
+            default: 0
         },
         isReturned: {
             type: Boolean,
-            required:false,
+            required: false,
             default: false
         }
     },
