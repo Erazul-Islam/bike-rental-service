@@ -5,8 +5,7 @@ import sendResponse from "../../utils/sendResponse"
 
 
 const createRental = catchAsync(async (req: Request, res: Response) => {
-
-    const result = await rentalService.createRental(req.body)
+    const result = await rentalService.createRental(req.body, req.user)
 
     sendResponse(res, {
         statusCode: 201,
@@ -20,7 +19,6 @@ const createRental = catchAsync(async (req: Request, res: Response) => {
 const getUpdatedRental = async (req: Request, res: Response) => {
     const rentalId = req.params.rentalId
     const updatedData = req.body
-    // const userId = 
 
     try {
         const updatedBike = await rentalService.ReturnedRental(rentalId, updatedData)
@@ -35,7 +33,25 @@ const getUpdatedRental = async (req: Request, res: Response) => {
     }
 }
 
+const getAllRental = async (req: Request, res: Response) => {
+    console.log(req.user)
+
+    try {
+        const result = await rentalService.getRental()
+        res.status(200).json({
+            statusCode: 200,
+            status: 200,
+            success: true,
+            message: "Bikes retrieved successfully",
+            data: result
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const rentalController = {
     createRental,
-    getUpdatedRental
+    getUpdatedRental,
+    getAllRental
 }

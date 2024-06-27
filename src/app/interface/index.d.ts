@@ -7,13 +7,3 @@ declare global {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
