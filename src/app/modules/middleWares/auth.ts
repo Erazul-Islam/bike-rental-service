@@ -11,7 +11,7 @@ const authValidation = (...requiredRoles: TUserRole[]) => {
     return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
         console.log(req.headers.authorization)
 
-        const token = req.headers.authorization
+        const token = req.headers.authorization?.split(' ')[1]
 
         if (!token) {
             throw new AppError(httpStatus.UNAUTHORIZED, 'You have no token')
@@ -32,8 +32,6 @@ const authValidation = (...requiredRoles: TUserRole[]) => {
             next()
 
         });
-
-
     }
     )
 

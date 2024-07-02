@@ -17,29 +17,27 @@ const signUpRegistration = catchAsync(async (req: Request, res: Response) => {
 
 const getProfile = async (req: Request, res: Response) => {
     try {
-        const _id = req.query._id
 
-        const result = await userService.getMyProfile(_id as string);
+        const token = req.headers.authorization?.split(' ')[1]
+        const result = await userService.getMyProfile(token as string)
+
         res.status(200).json({
             success: true,
-            message: "User profile retrieved successfully",
-            data: result,
-        });
-    } catch (error) {
-        res.status(200).json({
-            success: false,
-            message: "Not found",
-            error: error,
-        });
+            message: "User profile retrived successfully!",
+            data: result
+        })
+    } catch (err) {
+        console.log(err)
     }
+
 };
 
 const getUpdatedUser = async (req: Request, res: Response) => {
-    const id = req.params.id
+    const token = req.headers.authorization?.split(' ')[1]
     const updatedData = req.body
 
     try {
-        const updatedUser = await userService.getUpdatedUser(id, updatedData)
+        const updatedUser = await userService.getUpdatedUser(token as string, updatedData)
         console.log(updatedUser)
 
         res.status(200).json({

@@ -9,7 +9,7 @@ import config from "../../config";
 
 
 const getValidation = () => {
-    return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    return catchAsync(async (req: Request, res: Response) => {
         console.log(req.headers.authorization)
 
         const token = req.headers.authorization
@@ -23,14 +23,7 @@ const getValidation = () => {
                 throw new AppError(httpStatus.UNAUTHORIZED, 'Token is not varified')
             }
 
-            // const role = (decoded as JwtPayload).role
-
-            // if (requiredRoles && !requiredRoles.includes(role)) {
-            //     throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized')
-            // }
-
-            // req.user = decoded as JwtPayload
-            next()
+            return decoded
 
         });
 

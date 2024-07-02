@@ -11,6 +11,4 @@ export default {
     jwtRefressSecret: process.env.JWT_Refress_SECRET,
     JWT_ACCESS_EXPIRES_IN:process.env.JWT_ACCESS_EXPIRES_IN,
     JWT_REFRESS_EXPIRES_IN:process.env.JWT_REFRESS_EXPIRES_IN,
-
-
 }

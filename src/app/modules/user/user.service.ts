@@ -1,5 +1,7 @@
 import { TUser } from "./user.interface";
 import { User } from "./user.model";
+import jwt, { JwtPayload } from 'jsonwebtoken'
+import config from "../../config";
 
 
 const signUp = async (payload: TUser) => {
@@ -7,15 +9,41 @@ const signUp = async (payload: TUser) => {
     return result
 }
 
-const getMyProfile = async (_id: string) => {
-    const query = _id ? { _id } : {}
-    const result = await User.find(query)
-    return result
-}
 
-const getUpdatedUser = async (id: string, payload: Partial<TUser>) => {
+const getMyProfile = async (token: string) => {
     try {
-        const updatedUser = await User.findOneAndUpdate({ _id: id }, payload, { new: true })
+
+        const decoded = jwt.verify(token, config.jwtAccessSecret as string)
+
+        if (typeof decoded === 'string' || !('email' in decoded)) {
+            throw new Error('Invalid token structure');
+        }
+
+        const userEmail = decoded.email
+
+        const user = await User.findOne({ email: userEmail });
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        return user;
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+};
+
+const getUpdatedUser = async (token: string, payload: Partial<TUser>) => {
+    try {
+        const decoded = jwt.verify(token, config.jwtAccessSecret as string)
+
+        if (typeof decoded === 'string' || !('email' in decoded)) {
+            throw new Error('Invalid token structure');
+        }
+
+        const userEmail = decoded.email
+        const updatedUser = await User.findOneAndUpdate({ email: userEmail }, payload, { new: true })
+        
         return updatedUser
     } catch (error) {
         console.log(error)

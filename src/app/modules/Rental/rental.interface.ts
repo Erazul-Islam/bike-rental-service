@@ -1,6 +1,6 @@
 export type TRental = {
     bikeId: string,
-    userId: string
+    userId: Object | undefined
     startTime: string,
     returnTime: Date,
     totalCost: number,

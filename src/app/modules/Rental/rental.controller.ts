@@ -1,18 +1,16 @@
 import { Request, Response } from "express"
 import catchAsync from "../../utils/catchAsync"
 import { rentalService } from "./rental.service"
-import sendResponse from "../../utils/sendResponse"
 
 
 const createRental = catchAsync(async (req: Request, res: Response) => {
-    const result = await rentalService.createRental(req.body, req.user)
+    const token = req.headers.authorization?.split(' ')[1];
 
-    sendResponse(res, {
-        statusCode: 201,
-        status: 201,
+    const result = await rentalService.createRental(req.body, token as string)
+    res.status(200).json({
         success: true,
-        message: 'Rental created successfully',
-        data: result
+        message: "Rental created successfully",
+        data: result,
     })
 })
 
@@ -26,7 +24,7 @@ const getUpdatedRental = async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             message: "Bike returned successfully",
-            data: updatedBike
+            data: updatedBike,
         })
     } catch (err) {
         console.log(err)
@@ -34,10 +32,11 @@ const getUpdatedRental = async (req: Request, res: Response) => {
 }
 
 const getAllRental = async (req: Request, res: Response) => {
-    console.log(req.user)
+
+    const token = req.headers.authorization?.split(' ')[1];
 
     try {
-        const result = await rentalService.getRental()
+        const result = await rentalService.getRental(token as string)
         res.status(200).json({
             statusCode: 200,
             status: 200,

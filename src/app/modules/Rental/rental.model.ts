@@ -11,7 +11,6 @@ const RentalSchema = new Schema<TRental>(
         },
         userId: {
             type: String,
-            ref: 'User',
             required: false
         },
         startTime: {

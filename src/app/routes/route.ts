@@ -25,7 +25,7 @@ const moduleRoutes = [
         route: userRoute
     },
     {
-        path: '/rental',
+        path: '/rentals',
         route: rentalRoute
     }
 

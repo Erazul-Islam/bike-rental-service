@@ -1,21 +1,40 @@
+import config from "../../config"
 import { BikeModel } from "../bike/bike.model"
+import { User } from "../user/user.model"
 import { TRental } from "./rental.interface"
 import { RentalModel } from "./rental.model"
+import jwt from 'jsonwebtoken'
 
 
 
-const createRental = async (payload: TRental, user: any) => {
+const createRental = async (payload: TRental, token: string) => {
+
     const bikeId = payload.bikeId
     const find = await BikeModel.findOne({ _id: bikeId })
-    console.log(user)
-    const isAvailable = await BikeModel.updateOne({ _id: find }, { isAvailable: false })
-    if (isAvailable) {
-        
-        payload.userId = user.id
-        const result = await RentalModel.create(payload)
-        return result
+
+    const decoded = jwt.verify(token, config.jwtAccessSecret as string)
+
+    if (typeof decoded === 'string' || !('email' in decoded)) {
+        throw new Error('Invalid token structure');
     }
 
+    const finduser = await User.findOne({ email: decoded.email })
+    const userId = finduser?._id
+    payload.userId = userId
+    // 17.12
+    // 17.6
+    if (find?.isAvailable === true) {
+        const isAvailable = await BikeModel.updateOne({ _id: find }, { isAvailable: false })
+        if (isAvailable) {
+            // payload.userId = user
+
+            const result = await RentalModel.create(payload)
+            return result
+        }
+    }
+    else {
+        return 'Bike is not available'
+    }
 
 }
 
@@ -47,9 +66,33 @@ const ReturnedRental = async (id: string, payload: Partial<TRental>,) => {
     }
 }
 
-const getRental = async () => {
-    const result = await BikeModel.find()
-    return result
+const getRental = async (token: string) => {
+
+
+    try {
+        const decoded = jwt.verify(token, config.jwtAccessSecret as string)
+
+        if (typeof decoded === 'string' || !('email' in decoded)) {
+            throw new Error('Invalid token structure');
+        }
+
+
+        const finduser = await User.findOne({ email: decoded.email })
+        const userId = finduser?._id
+        console.log(finduser, userId)
+
+
+
+        const user = await RentalModel.find({ userId })
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        return user;
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
 }
 
 export const rentalService = {

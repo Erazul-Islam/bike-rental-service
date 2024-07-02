@@ -2,7 +2,6 @@ import express from 'express'
 import validateRequest from '../middleWares/validateRequest';
 import { UserValidation } from './user.validation';
 import { userController } from './user.controller';
-import getValidation from '../middleWares/auth.get';
 import authValidation from '../middleWares/auth';
 
 
@@ -14,8 +13,8 @@ router.post(
     userController.signUpRegistration,
 );
 
-router.get('/', getValidation(), userController.getProfile)
+router.get('/me',  userController.getProfile)
 
-router.put('/:id', getValidation(), userController.getUpdatedUser)
+router.put('/me',  userController.getUpdatedUser)
 
 export const userRoute = router
