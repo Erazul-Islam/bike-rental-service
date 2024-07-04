@@ -23,7 +23,6 @@ const getUpdatedBikeFromDB = async (id: string, payload: Partial<TBike>) => {
 
 const deletedFromDB = async (id: string) => {
     const result = await BikeModel.findByIdAndUpdate({ _id: id }, { isAvailable: false })
-    console.log(result)
     return result
 }
 

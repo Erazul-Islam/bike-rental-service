@@ -1,4 +1,5 @@
 import config from "../../config"
+import AppError from "../../errors/AppError"
 import { BikeModel } from "../bike/bike.model"
 import { User } from "../user/user.model"
 import { TRental } from "./rental.interface"
@@ -21,19 +22,16 @@ const createRental = async (payload: TRental, token: string) => {
     const finduser = await User.findOne({ email: decoded.email })
     const userId = finduser?._id
     payload.userId = userId
-    // 17.12
-    // 17.6
     if (find?.isAvailable === true) {
         const isAvailable = await BikeModel.updateOne({ _id: find }, { isAvailable: false })
         if (isAvailable) {
-            // payload.userId = user
 
             const result = await RentalModel.create(payload)
             return result
         }
     }
     else {
-        return 'Bike is not available'
+        throw new AppError(201, 'Bike is not available')
     }
 
 }
