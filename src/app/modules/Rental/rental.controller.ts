@@ -41,7 +41,7 @@ const getAllRental = async (req: Request, res: Response) => {
             statusCode: 200,
             status: 200,
             success: true,
-            message: "Bikes retrieved successfully",
+            message: "Rental retrieved successfully",
             data: result
         })
     } catch (err) {

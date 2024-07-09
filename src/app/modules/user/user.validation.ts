@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const userValidationSchema = z.object({
-    // body: z.object({
+
         name: z.string().optional(),
         email: z.string().optional(),
         password: z.string().optional(),
@@ -13,7 +13,6 @@ const userValidationSchema = z.object({
             })
             .max(20, { message: 'Password can not be more than 20 characters' })
             .optional(),
-    // })
 });
 
 export const UserValidation = {
