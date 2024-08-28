@@ -19,9 +19,7 @@ const user_model_1 = require("../user/user.model");
 const config_1 = __importDefault(require("../../config"));
 const auth_utils_1 = require("./auth.utils");
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log(payload)
     const user = yield user_model_1.User.isUSerExistByCustomEmial(payload.email);
-    console.log(user_model_1.User.isPasswordMatched);
     if (!user) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'This user is not found');
     }
@@ -33,10 +31,8 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         role: user.role
     };
     const accessToken = (0, auth_utils_1.createToken)(jwtPayload, config_1.default.jwtAccessSecret, config_1.default.JWT_ACCESS_EXPIRES_IN);
-    const RefressToken = (0, auth_utils_1.createToken)(jwtPayload, config_1.default.jwtRefressSecret, config_1.default.JWT_REFRESS_EXPIRES_IN);
     return {
         accessToken,
-        RefressToken,
         user
     };
 });

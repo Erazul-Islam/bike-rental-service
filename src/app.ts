@@ -6,8 +6,15 @@ import notFound from './app/modules/middleWares/notFound'
 const app: Application = express()
 const port = 3000
 
+const corsOptions = {
+    origin: 'http://localhost:5173', // Allow only this origin
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization' // Allow only specific headers
+};
+
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.use('/api', router);
 

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserValidation = void 0;
 const zod_1 = require("zod");
 const userValidationSchema = zod_1.z.object({
-    // body: z.object({
     name: zod_1.z.string().optional(),
     email: zod_1.z.string().optional(),
     password: zod_1.z.string().optional(),
@@ -15,7 +14,6 @@ const userValidationSchema = zod_1.z.object({
     })
         .max(20, { message: 'Password can not be more than 20 characters' })
         .optional(),
-    // })
 });
 exports.UserValidation = {
     userValidationSchema,

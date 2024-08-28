@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import catchAsync from "../../utils/catchAsync"
 import sendResponse from "../../utils/sendResponse"
 import { BikeService } from "./bike.service"
-import { BikeModel } from "./bike.model"
+
 
 
 const AddingBike = catchAsync(async (req: Request, res: Response) => {
@@ -17,10 +17,26 @@ const AddingBike = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllbike = async (req: Request, res: Response) => {
-    console.log(req.user)
 
     try {
         const result = await BikeService.getAllBikeFromDB()
+        res.status(200).json({
+            statusCode: 200,
+            status: 200,
+            success: true,
+            message: "Bikes retrieved successfully",
+            data: result
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+const getSingleBike = async (req: Request, res: Response) => {
+
+    const bikeId = req.params.bikeId
+
+    try {
+        const result = await BikeService.getSingleBikeFromDB(bikeId)
         res.status(200).json({
             statusCode: 200,
             status: 200,
@@ -50,6 +66,16 @@ const getUpdatedBike = async (req: Request, res: Response) => {
     }
 }
 
+
+const updateBikeAvailability = catchAsync(async (req: Request, res: Response) => {
+    const result = await BikeService.updateBikeAvailability(req.params.bikeId);
+    res.status(200).json({
+        success: true,
+        message: "Bike updated successfully!",
+        data: result
+    });
+});
+
 const deleteSingleBike = async (req: Request, res: Response) => {
 
     try {
@@ -72,5 +98,7 @@ export const bikeController = {
     AddingBike,
     getAllbike,
     getUpdatedBike,
-    deleteSingleBike
+    deleteSingleBike,
+    getSingleBike,
+    updateBikeAvailability,
 }

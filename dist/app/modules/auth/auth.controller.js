@@ -13,22 +13,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authController = void 0;
-const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
-const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const auth_service_1 = require("./auth.service");
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield auth_service_1.authService.loginUser(req.body);
-    const { RefressToken } = result;
-    res.cookie('refreshToken', RefressToken, {
-        httpOnly: true
-    });
-    (0, sendResponse_1.default)(res, {
-        statusCode: http_status_1.default.OK,
-        status: 200,
+    const User = {
+        _id: result.user._id,
+        name: result.user.name,
+        email: result.user.email,
+        phone: result.user.phone,
+        address: result.user.address,
+        role: result.user.role,
+    };
+    res.status(200).json({
         success: true,
-        message: "User is logged in successfully",
-        data: result
+        statusCode: 200,
+        message: "User logged in successfully",
+        token: result.accessToken,
+        data: User
     });
 }));
 exports.authController = {

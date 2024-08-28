@@ -30,6 +30,11 @@ const RentalSchema = new Schema<TRental>(
             type: Boolean,
             required: false,
             default: false
+        },
+        isPaid: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     {

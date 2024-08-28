@@ -8,6 +8,7 @@ const BikeValidationSchema = z.object({
         year: z.number().optional(),
         model:z.string().optional(),
         brand:z.string().optional(),
+        image:z.string().optional(),
         isAvailable:z.boolean().optional()
 });
 

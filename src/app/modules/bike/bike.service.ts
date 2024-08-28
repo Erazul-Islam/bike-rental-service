@@ -21,8 +21,30 @@ const getUpdatedBikeFromDB = async (id: string, payload: Partial<TBike>) => {
     }
 }
 
+const updateBikeAvailability = async (id: string) => {
+    try {
+        const updatedBike = await BikeModel.updateOne(
+            { _id: id },
+            { isAvailable: false },
+        );
+        return updatedBike;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const getSingleBikeFromDB = async (id: string) => {
+
+    try {
+        const updatedProduct = await BikeModel.findOne({ _id: id })
+        return updatedProduct
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const deletedFromDB = async (id: string) => {
-    const result = await BikeModel.findByIdAndUpdate({ _id: id }, { isAvailable: false })
+    const result = await BikeModel.deleteOne({ _id: id })
     return result
 }
 
@@ -30,5 +52,7 @@ export const BikeService = {
     addBike,
     getAllBikeFromDB,
     getUpdatedBikeFromDB,
-    deletedFromDB
+    deletedFromDB,
+    getSingleBikeFromDB,
+    updateBikeAvailability
 }

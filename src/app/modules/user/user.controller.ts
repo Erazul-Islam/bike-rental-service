@@ -15,6 +15,46 @@ const signUpRegistration = catchAsync(async (req: Request, res: Response) => {
     })
 })
 
+const getAllProfile = async (req: Request, res: Response) => {
+    console.log(req.user)
+
+    try {
+        const result = await userService.getAllProfileFromDB()
+        res.status(200).json({
+            statusCode: 200,
+            status: 200,
+            success: true,
+            message: "Profile retrieved successfully",
+            data: result
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const getUpdatedUserRole = async (req: Request, res: Response) => {
+    const userId = req.params.userId
+
+    try {
+        const updatedUserRole = await userService.getUpdatedUserRole(userId)
+
+        if (!updatedUserRole) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "User role updated successfully",
+            data: updatedUserRole,
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 const getProfile = async (req: Request, res: Response) => {
     try {
 
@@ -50,9 +90,30 @@ const getUpdatedUser = async (req: Request, res: Response) => {
     }
 }
 
+const deleteSingleUser = async (req: Request, res: Response) => {
+
+    try {
+
+        const userId = req.params.userId;
+
+        const result = await userService.deletedFromDB(userId)
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully!",
+            data: result
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
 
 export const userController = {
     signUpRegistration,
     getProfile,
-    getUpdatedUser
+    getUpdatedUser,
+    getAllProfile,
+    deleteSingleUser,
+    getUpdatedUserRole
 }

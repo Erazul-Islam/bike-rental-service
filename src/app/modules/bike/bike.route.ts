@@ -18,6 +18,8 @@ router.put('/:bikeId', authValidation(USER_ROLE.admin), bikeController.getUpdate
 
 router.delete('/:bikeId',authValidation(USER_ROLE.admin), bikeController.deleteSingleBike)
 
+router.patch("/:bikeId/availability", bikeController.updateBikeAvailability);
 router.get('/', bikeController.getAllbike)
+router.get('/:bikeId', bikeController.getSingleBike)
 
 export const bikeRoute = router

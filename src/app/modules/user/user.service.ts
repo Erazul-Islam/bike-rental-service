@@ -9,6 +9,10 @@ const signUp = async (payload: TUser) => {
     return result
 }
 
+const getAllProfileFromDB = async () => {
+    const result = await User.find()
+    return result
+}
 
 const getMyProfile = async (token: string) => {
     try {
@@ -33,6 +37,15 @@ const getMyProfile = async (token: string) => {
     }
 };
 
+const getUpdatedUserRole = async (id: string) => {
+    try {
+        const updatedProduct = await User.findOneAndUpdate({ _id: id }, { role: 'admin' })
+        return updatedProduct
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 const getUpdatedUser = async (token: string, payload: Partial<TUser>) => {
     try {
         const decoded = jwt.verify(token, config.jwtAccessSecret as string)
@@ -43,15 +56,23 @@ const getUpdatedUser = async (token: string, payload: Partial<TUser>) => {
 
         const userEmail = decoded.email
         const updatedUser = await User.findOneAndUpdate({ email: userEmail }, payload, { new: true })
-        
+
         return updatedUser
     } catch (error) {
         console.log(error)
     }
 }
 
+const deletedFromDB = async (id: string) => {
+    const result = await User.deleteOne({ _id: id })
+    return result
+}
+
 export const userService = {
     signUp,
     getMyProfile,
-    getUpdatedUser
+    getUpdatedUser,
+    getAllProfileFromDB,
+    deletedFromDB,
+    getUpdatedUserRole
 }

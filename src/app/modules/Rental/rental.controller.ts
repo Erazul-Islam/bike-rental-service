@@ -31,6 +31,31 @@ const getUpdatedRental = async (req: Request, res: Response) => {
     }
 }
 
+const updateRentalPayement = catchAsync(async (req: Request, res: Response) => {
+    const result = await rentalService.updateRentalPayement(req.params.rentalId);
+    res.status(200).json({
+        success: true,
+        message: "Bike updated successfully!",
+        data: result
+    });
+});
+
+const getAllRentalFromDB = async (req: Request, res: Response) => {
+
+    try {
+        const result = await rentalService.getAllRentalFromDB()
+        res.status(200).json({
+            statusCode: 200,
+            status: 200,
+            success: true,
+            message: "Rental retrieved successfully",
+            data: result
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 const getAllRental = async (req: Request, res: Response) => {
 
     const token = req.headers.authorization?.split(' ')[1];
@@ -52,5 +77,7 @@ const getAllRental = async (req: Request, res: Response) => {
 export const rentalController = {
     createRental,
     getUpdatedRental,
-    getAllRental
+    getAllRental,
+    getAllRentalFromDB,
+    updateRentalPayement
 }

@@ -13,6 +13,12 @@ router.post(
     userController.signUpRegistration,
 );
 
+router.delete('/:userId', userController.deleteSingleUser)
+
+router.get('/all-profile', userController.getAllProfile)
+
+router.patch('/:userId', userController.getUpdatedUserRole)
+
 router.get('/me',  userController.getProfile)
 
 router.put('/me',  userController.getUpdatedUser)

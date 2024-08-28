@@ -15,6 +15,10 @@ router.post(
 
 router.put('/:rentalId/return', authValidation(USER_ROLE.admin), rentalController.getUpdatedRental)
 
+router.patch("/:rentalId", rentalController.updateRentalPayement);
+
 router.get('/', rentalController.getAllRental)
+
+router.get('/all-rental', rentalController.getAllRentalFromDB)
 
 export const rentalRoute = router

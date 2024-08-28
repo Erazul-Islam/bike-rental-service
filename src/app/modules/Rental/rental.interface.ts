@@ -4,5 +4,6 @@ export type TRental = {
     startTime: string,
     returnTime: Date,
     totalCost: number,
-    isReturned: boolean
+    isReturned: boolean,
+    isPaid: boolean,
 };
