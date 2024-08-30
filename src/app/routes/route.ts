@@ -4,6 +4,7 @@ import { bikeRoute } from "../modules/bike/bike.route";
 import { rentalRoute } from "../modules/Rental/rental.route";
 import { authRoute } from "../modules/auth/auth.route";
 import { payemtRoute } from "../modules/payement/payement.routes";
+import { CouponRoute } from "../modules/coupon/coupon.route";
 
 const router = Router();
 
@@ -32,6 +33,10 @@ const moduleRoutes = [
     {
         path: '/payement',
         route: payemtRoute
+    },
+    {
+        path: '/coupon',
+        route: CouponRoute
     }
 
 ]
