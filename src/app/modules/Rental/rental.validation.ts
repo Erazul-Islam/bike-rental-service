@@ -7,6 +7,7 @@ const RentalValidationSchema = z.object({
     returnTime: z.date().optional(),
     totalCost: z.number().optional(),
     isReturned: z.boolean().optional(),
+    discountedTotalCost: z.boolean().optional(),
     isPaid: z.boolean().optional()
 });
 

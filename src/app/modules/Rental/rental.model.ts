@@ -1,4 +1,4 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { TRental } from "./rental.interface";
 
 
@@ -35,6 +35,11 @@ const RentalSchema = new Schema<TRental>(
             type: Boolean,
             required: false,
             default: false
+        },
+        discountedTotalCost: {
+            type: Number,
+            required: false,
+            default: 0
         }
     },
     {

@@ -17,9 +17,10 @@ const createRental = catchAsync(async (req: Request, res: Response) => {
 const getUpdatedRental = async (req: Request, res: Response) => {
     const rentalId = req.params.rentalId
     const updatedData = req.body
+    const discount = req.body.discount || 0;
 
     try {
-        const updatedBike = await rentalService.ReturnedRental(rentalId, updatedData)
+        const updatedBike = await rentalService.ReturnedRental(rentalId, updatedData, discount)
 
         res.status(200).json({
             success: true,
