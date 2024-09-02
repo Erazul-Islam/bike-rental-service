@@ -40,11 +40,16 @@ const createRental = (payload, token) => __awaiter(void 0, void 0, void 0, funct
         throw new AppError_1.default(201, 'Bike is not available');
     }
 });
+const getAllRentalFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield rental_model_1.RentalModel.find();
+    return result;
+});
 const ReturnedRental = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const find = yield rental_model_1.RentalModel.findOne({ _id: id });
     const bikeId = find === null || find === void 0 ? void 0 : find.bikeId;
     const bike = yield bike_model_1.BikeModel.findById({ _id: bikeId });
     const pricePerHour = bike === null || bike === void 0 ? void 0 : bike.pricePerHour;
+    console.log('price per hour', pricePerHour);
     const isAvailable = yield bike_model_1.BikeModel.updateOne({ _id: bikeId }, { isAvailable: true });
     const startTime = (find === null || find === void 0 ? void 0 : find.startTime) ? new Date(find.startTime) : null;
     let returnTime = (find === null || find === void 0 ? void 0 : find.returnTime) ? new Date(find.returnTime) : null;
@@ -53,13 +58,25 @@ const ReturnedRental = (id, payload) => __awaiter(void 0, void 0, void 0, functi
             returnTime = new Date();
         }
         const timeDifference = returnTime.getTime() - startTime.getTime();
-        const hoursDifference = Math.round(timeDifference / (1000 * 60 * 60));
+        console.log('time difference', timeDifference);
+        const hoursDifference = parseFloat((timeDifference / (1000 * 60 * 60)).toFixed(2));
+        console.log('hourse difference', hoursDifference);
         if (pricePerHour && isAvailable) {
             const totalCost = pricePerHour * hoursDifference;
-            console.log(`Time difference: ${hoursDifference} and totalCost is ${totalCost}`);
-            const updatedRental = yield rental_model_1.RentalModel.findOneAndUpdate({ _id: id }, { $set: { isReturned: true, totalCost: totalCost, returnTime: new Date(), } }, { new: true });
+            console.log(totalCost);
+            // console.log(`Time difference: ${hoursDifference} and totalCost is ${totalCost}`);
+            const updatedRental = yield rental_model_1.RentalModel.findOneAndUpdate({ _id: id }, { $set: Object.assign(Object.assign({ isReturned: true, totalCost: totalCost }, payload), { returnTime: new Date() }) }, { new: true });
             return updatedRental;
         }
+    }
+});
+const updateRentalPayement = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const updateIsPaid = yield rental_model_1.RentalModel.updateOne({ _id: id }, { isPaid: true });
+        return updateIsPaid;
+    }
+    catch (error) {
+        console.log(error);
     }
 });
 const getRental = (token) => __awaiter(void 0, void 0, void 0, function* () {
@@ -84,5 +101,7 @@ const getRental = (token) => __awaiter(void 0, void 0, void 0, function* () {
 exports.rentalService = {
     createRental,
     ReturnedRental,
-    getRental
+    getRental,
+    getAllRentalFromDB,
+    updateRentalPayement
 };

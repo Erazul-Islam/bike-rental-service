@@ -29,6 +29,16 @@ const RentalSchema = new mongoose_1.Schema({
         type: Boolean,
         required: false,
         default: false
+    },
+    isPaid: {
+        type: Boolean,
+        required: false,
+        default: false
+    },
+    discountedTotalCost: {
+        type: Number,
+        required: false,
+        default: 0
     }
 }, {
     timestamps: true,

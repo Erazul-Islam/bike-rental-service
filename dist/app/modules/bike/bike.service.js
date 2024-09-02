@@ -28,13 +28,33 @@ const getUpdatedBikeFromDB = (id, payload) => __awaiter(void 0, void 0, void 0, 
         console.log(error);
     }
 });
+const updateBikeAvailability = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const updatedBike = yield bike_model_1.BikeModel.updateOne({ _id: id }, { isAvailable: false });
+        return updatedBike;
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+const getSingleBikeFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const updatedProduct = yield bike_model_1.BikeModel.findOne({ _id: id });
+        return updatedProduct;
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
 const deletedFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield bike_model_1.BikeModel.findByIdAndUpdate({ _id: id }, { isAvailable: false });
+    const result = yield bike_model_1.BikeModel.deleteOne({ _id: id });
     return result;
 });
 exports.BikeService = {
     addBike,
     getAllBikeFromDB,
     getUpdatedBikeFromDB,
-    deletedFromDB
+    deletedFromDB,
+    getSingleBikeFromDB,
+    updateBikeAvailability
 };

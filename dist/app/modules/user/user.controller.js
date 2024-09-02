@@ -26,6 +26,42 @@ const signUpRegistration = (0, catchAsync_1.default)((req, res) => __awaiter(voi
         data: result
     });
 }));
+const getAllProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.user);
+    try {
+        const result = yield user_service_1.userService.getAllProfileFromDB();
+        res.status(200).json({
+            statusCode: 200,
+            status: 200,
+            success: true,
+            message: "Profile retrieved successfully",
+            data: result
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+const getUpdatedUserRole = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = req.params.userId;
+    try {
+        const updatedUserRole = yield user_service_1.userService.getUpdatedUserRole(userId);
+        if (!updatedUserRole) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "User role updated successfully",
+            data: updatedUserRole,
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -58,8 +94,25 @@ const getUpdatedUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
         console.log(err);
     }
 });
+const deleteSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.userId;
+        const result = yield user_service_1.userService.deletedFromDB(userId);
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully!",
+            data: result
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 exports.userController = {
     signUpRegistration,
     getProfile,
-    getUpdatedUser
+    getUpdatedUser,
+    getAllProfile,
+    deleteSingleUser,
+    getUpdatedUserRole
 };

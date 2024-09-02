@@ -20,6 +20,10 @@ const signUp = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield user_model_1.User.create(payload);
     return result;
 });
+const getAllProfileFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.find();
+    return result;
+});
 const getMyProfile = (token) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwtAccessSecret);
@@ -37,6 +41,27 @@ const getMyProfile = (token) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error('Invalid token');
     }
 });
+const getUpdatedUserRole = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_model_1.User.findById(id);
+        console.log('user id', user);
+        // If user is not found, throw an error
+        if (!user) {
+            throw new Error('User not found');
+        }
+        console.log(user.role);
+        // If the user's role is already admin, prevent the update
+        if (user.role === 'admin') {
+            throw new Error('Cannot change role of an admin');
+        }
+        const updatedProduct = yield user_model_1.User.findOneAndUpdate({ _id: id }, { role: 'admin' }, { new: true });
+        console.log('service', updatedProduct);
+        return updatedProduct;
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
 const getUpdatedUser = (token, payload) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwtAccessSecret);
@@ -51,8 +76,15 @@ const getUpdatedUser = (token, payload) => __awaiter(void 0, void 0, void 0, fun
         console.log(error);
     }
 });
+const deletedFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield user_model_1.User.deleteOne({ _id: id });
+    return result;
+});
 exports.userService = {
     signUp,
     getMyProfile,
-    getUpdatedUser
+    getUpdatedUser,
+    getAllProfileFromDB,
+    deletedFromDB,
+    getUpdatedUserRole
 };

@@ -15,5 +15,7 @@ const router = express_1.default.Router();
 router.post('/', (0, validateRequest_1.default)(bike_validation_1.BikeValidation.BikeValidationSchema), (0, auth_1.default)(user_constant_1.USER_ROLE.admin), bike_controller_1.bikeController.AddingBike);
 router.put('/:bikeId', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), bike_controller_1.bikeController.getUpdatedBike);
 router.delete('/:bikeId', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), bike_controller_1.bikeController.deleteSingleBike);
+router.patch("/:bikeId/availability", bike_controller_1.bikeController.updateBikeAvailability);
 router.get('/', bike_controller_1.bikeController.getAllbike);
+router.get('/:bikeId', bike_controller_1.bikeController.getSingleBike);
 exports.bikeRoute = router;

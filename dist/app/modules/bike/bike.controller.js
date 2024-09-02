@@ -27,9 +27,24 @@ const AddingBike = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     });
 }));
 const getAllbike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.user);
     try {
         const result = yield bike_service_1.BikeService.getAllBikeFromDB();
+        res.status(200).json({
+            statusCode: 200,
+            status: 200,
+            success: true,
+            message: "Bikes retrieved successfully",
+            data: result
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+const getSingleBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const bikeId = req.params.bikeId;
+    try {
+        const result = yield bike_service_1.BikeService.getSingleBikeFromDB(bikeId);
         res.status(200).json({
             statusCode: 200,
             status: 200,
@@ -57,6 +72,14 @@ const getUpdatedBike = (req, res) => __awaiter(void 0, void 0, void 0, function*
         console.log(err);
     }
 });
+const updateBikeAvailability = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield bike_service_1.BikeService.updateBikeAvailability(req.params.bikeId);
+    res.status(200).json({
+        success: true,
+        message: "Bike updated successfully!",
+        data: result
+    });
+}));
 const deleteSingleBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const bikeId = req.params.bikeId;
@@ -75,5 +98,7 @@ exports.bikeController = {
     AddingBike,
     getAllbike,
     getUpdatedBike,
-    deleteSingleBike
+    deleteSingleBike,
+    getSingleBike,
+    updateBikeAvailability,
 };

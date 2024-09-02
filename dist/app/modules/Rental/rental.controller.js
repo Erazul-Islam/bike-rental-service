@@ -40,6 +40,29 @@ const getUpdatedRental = (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log(err);
     }
 });
+const updateRentalPayement = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield rental_service_1.rentalService.updateRentalPayement(req.params.rentalId);
+    res.status(200).json({
+        success: true,
+        message: "Bike updated successfully!",
+        data: result
+    });
+}));
+const getAllRentalFromDB = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield rental_service_1.rentalService.getAllRentalFromDB();
+        res.status(200).json({
+            statusCode: 200,
+            status: 200,
+            success: true,
+            message: "Rental retrieved successfully",
+            data: result
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
 const getAllRental = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
     const token = (_b = req.headers.authorization) === null || _b === void 0 ? void 0 : _b.split(' ')[1];
@@ -60,5 +83,7 @@ const getAllRental = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.rentalController = {
     createRental,
     getUpdatedRental,
-    getAllRental
+    getAllRental,
+    getAllRentalFromDB,
+    updateRentalPayement
 };

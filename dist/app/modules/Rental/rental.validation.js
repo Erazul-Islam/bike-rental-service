@@ -9,6 +9,8 @@ const RentalValidationSchema = zod_1.z.object({
     returnTime: zod_1.z.date().optional(),
     totalCost: zod_1.z.number().optional(),
     isReturned: zod_1.z.boolean().optional(),
+    discountedTotalCost: zod_1.z.boolean().optional(),
+    isPaid: zod_1.z.boolean().optional()
 });
 exports.RentalValidation = {
     RentalValidationSchema,
