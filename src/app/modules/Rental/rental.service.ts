@@ -40,7 +40,7 @@ const getAllRentalFromDB = async () => {
     return result
 }
 
-const ReturnedRental = async (id: string, payload: Partial<TRental>, discount: number = 0) => {
+const ReturnedRental = async (id: string, payload: Partial<TRental>,) => {
 
     const find = await RentalModel.findOne({ _id: id })
     const bikeId = find?.bikeId
@@ -64,10 +64,9 @@ const ReturnedRental = async (id: string, payload: Partial<TRental>, discount: n
 
         if (pricePerHour && isAvailable) {
             const totalCost = pricePerHour * hoursDifference
-            const discountedTotalCost = totalCost * ((100 - discount) / 100);
             console.log(totalCost)
             // console.log(`Time difference: ${hoursDifference} and totalCost is ${totalCost}`);
-            const updatedRental = await RentalModel.findOneAndUpdate({ _id: id }, { $set: { isReturned: true, totalCost: totalCost, discountedTotalCost: discountedTotalCost, ...payload, returnTime: new Date(), } }, { new: true })
+            const updatedRental = await RentalModel.findOneAndUpdate({ _id: id }, { $set: { isReturned: true, totalCost: totalCost, ...payload, returnTime: new Date(), } }, { new: true })
             return updatedRental
         }
 
