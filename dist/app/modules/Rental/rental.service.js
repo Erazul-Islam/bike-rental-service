@@ -28,7 +28,9 @@ const createRental = (payload, token) => __awaiter(void 0, void 0, void 0, funct
     }
     const finduser = yield user_model_1.User.findOne({ email: decoded.email });
     const userId = finduser === null || finduser === void 0 ? void 0 : finduser._id;
+    const userName = finduser === null || finduser === void 0 ? void 0 : finduser.name;
     payload.userId = userId;
+    payload.userName = userName;
     if ((find === null || find === void 0 ? void 0 : find.isAvailable) === true) {
         const isAvailable = yield bike_model_1.BikeModel.updateOne({ _id: find }, { isAvailable: false });
         if (isAvailable) {

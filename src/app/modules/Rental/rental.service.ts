@@ -20,7 +20,9 @@ const createRental = async (payload: TRental, token: string) => {
 
     const finduser = await User.findOne({ email: decoded.email })
     const userId = finduser?._id
+    const userName = finduser?.name
     payload.userId = userId
+    payload.userName = userName
     if (find?.isAvailable === true) {
         const isAvailable = await BikeModel.updateOne({ _id: find }, { isAvailable: false })
         if (isAvailable) {
