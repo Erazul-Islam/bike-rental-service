@@ -9,8 +9,6 @@ export const createPaymentIntentController = async (req: Request, res: Response)
 
     const { amount } = req.body
 
-
-
     if (!amount || amount <= 0) {
       return res.status(400).json({
         success: false,
@@ -84,3 +82,21 @@ export const confirmPaymentController = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const transactionHistoryController = async (req: Request, res: Response) => {
+
+  try {
+      const transaction = await PayementService.getTransactionHistory(5)
+
+      return res.status(200).json({
+          success: true,
+          data: transaction
+      })
+  }
+  catch {
+      res.status(500).json({
+          success: false,
+          message: `Error to get transaction history `,
+      });
+  }
+}

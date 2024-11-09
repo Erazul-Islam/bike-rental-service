@@ -1,3 +1,5 @@
+import httpStatus from "http-status";
+import AppError from "../../errors/AppError";
 import { PaymentModel } from "./payement.model";
 
 const Stripe = require('stripe');
@@ -65,7 +67,19 @@ const confirmPayment = async (paymentIntentId: string, paymentMethodId: string) 
     }
 };
 
+const getTransactionHistory = async (limit = 5) => {
+    try {
+        const paymentIntent = await stripe.paymentIntents.list({
+            limit: limit
+        })
+
+        return paymentIntent.data
+    }
+    catch {
+        throw new AppError(httpStatus.NOT_FOUND, 'payment history not found')
+    }
+}
 
 export const PayementService = {
-    createPaymentIntent, confirmPayment, createFullPaymentIntent
+    createPaymentIntent, confirmPayment, createFullPaymentIntent,getTransactionHistory
 }
