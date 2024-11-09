@@ -1,12 +1,19 @@
-const mongoose = require('mongoose');
+import { Schema, model } from "mongoose";
 
-const PaymentSchema = new mongoose.Schema({
-    amount: { type: Number, required: true },
-    paymentMethodId: { type: String, required: true },
-    paymentIntentId: { type: String, required: true },
-    status: { type: String, required: true },
-}, { timestamps: true });
+import { TPayment } from "./payment.interface";
 
-const Payment = mongoose.model('Payment', PaymentSchema);
 
-module.exports = Payment;
+const BikePayment = new Schema<TPayment>(
+    {
+        name: { type: String, },
+        email: { type: String, },
+        BDT: { type: Number, },
+        paymentIntentId: { type: String },
+        status: { type: String, default: 'pending' },
+    },
+    {
+        timestamps: true,
+    },
+);
+
+export const PaymentModel = model<TPayment>('bike_Payment', BikePayment);

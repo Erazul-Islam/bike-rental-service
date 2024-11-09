@@ -4,8 +4,13 @@ import { PayementService } from './payement.service';
 // import { createPaymentIntent, confirmPayment } from '../services/paymentService';
 
 export const createPaymentIntentController = async (req: Request, res: Response) => {
+
   try {
-    const { amount } = req.body;
+
+    const { amount } = req.body
+
+
+
     if (!amount || amount <= 0) {
       return res.status(400).json({
         success: false,
@@ -14,6 +19,7 @@ export const createPaymentIntentController = async (req: Request, res: Response)
     }
 
     const secret = await PayementService.createPaymentIntent(amount);
+    console.log(secret)
     res.status(200).json({
       success: true,
       message: 'Payment intent created successfully',
