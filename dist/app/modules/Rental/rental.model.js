@@ -12,6 +12,14 @@ const RentalSchema = new mongoose_1.Schema({
         type: String,
         required: false
     },
+    userName: {
+        type: String,
+        required: true
+    },
+    bikeName: {
+        type: String,
+        required: true
+    },
     startTime: {
         type: String,
         required: true

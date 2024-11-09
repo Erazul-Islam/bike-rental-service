@@ -7,6 +7,7 @@ const rental_route_1 = require("../modules/Rental/rental.route");
 const auth_route_1 = require("../modules/auth/auth.route");
 const payement_routes_1 = require("../modules/payement/payement.routes");
 const coupon_route_1 = require("../modules/coupon/coupon.route");
+const cart_route_1 = require("../modules/add-cart/cart.route");
 const router = (0, express_1.Router)();
 const moduleRoutes = [
     {
@@ -36,6 +37,10 @@ const moduleRoutes = [
     {
         path: '/coupon',
         route: coupon_route_1.CouponRoute
+    },
+    {
+        path: '/cart',
+        route: cart_route_1.cartRouter
     }
 ];
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

@@ -21,8 +21,12 @@ const rental_model_1 = require("./rental.model");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const createRental = (payload, token) => __awaiter(void 0, void 0, void 0, function* () {
     const bikeId = payload.bikeId;
+    console.log(bikeId);
     const find = yield bike_model_1.BikeModel.findOne({ _id: bikeId });
     const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwtAccessSecret);
+    console.log(find);
+    const bikeName = find === null || find === void 0 ? void 0 : find.name;
+    console.log(bikeName);
     if (typeof decoded === 'string' || !('email' in decoded)) {
         throw new Error('Invalid token structure');
     }
@@ -31,6 +35,8 @@ const createRental = (payload, token) => __awaiter(void 0, void 0, void 0, funct
     const userName = finduser === null || finduser === void 0 ? void 0 : finduser.name;
     payload.userId = userId;
     payload.userName = userName;
+    payload.bikeName = bikeName;
+    // console.log(bikeName)
     if ((find === null || find === void 0 ? void 0 : find.isAvailable) === true) {
         const isAvailable = yield bike_model_1.BikeModel.updateOne({ _id: find }, { isAvailable: false });
         if (isAvailable) {

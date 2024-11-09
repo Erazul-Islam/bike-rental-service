@@ -11,8 +11,13 @@ import jwt from 'jsonwebtoken'
 const createRental = async (payload: TRental, token: string) => {
 
     const bikeId = payload.bikeId
+    console.log(bikeId)
+
     const find = await BikeModel.findOne({ _id: bikeId })
     const decoded = jwt.verify(token, config.jwtAccessSecret as string)
+    console.log(find)
+    const bikeName = find?.name
+    console.log(bikeName)
 
     if (typeof decoded === 'string' || !('email' in decoded)) {
         throw new Error('Invalid token structure');
@@ -23,10 +28,11 @@ const createRental = async (payload: TRental, token: string) => {
     const userName = finduser?.name
     payload.userId = userId
     payload.userName = userName
+    payload.bikeName = bikeName as string
+    // console.log(bikeName)
     if (find?.isAvailable === true) {
         const isAvailable = await BikeModel.updateOne({ _id: find }, { isAvailable: false })
         if (isAvailable) {
-
             const result = await RentalModel.create(payload)
             return result
         }

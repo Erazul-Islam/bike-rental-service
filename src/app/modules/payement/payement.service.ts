@@ -2,14 +2,14 @@ const Stripe = require('stripe');
 const stripe = new Stripe(process.env.secret_Key);
 
 const createPaymentIntent = async (amount: number) => {
-    console.log(amount)
+
     try {
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency: 'usd',
             payment_method_types: ['card'],
         });
-        console.log(paymentIntent)
+ 
         return paymentIntent;
 
     } catch (error) {
@@ -17,14 +17,14 @@ const createPaymentIntent = async (amount: number) => {
     }
 };
 const createFullPaymentIntent = async (amount: number) => {
-    console.log(amount)
+
     try {
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency: 'usd',
             payment_method_types: ['card'],
         });
-        console.log(paymentIntent)
+
         return paymentIntent;
 
     } catch (error) {
