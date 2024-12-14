@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.confirmPaymentController = exports.createFullPaymentIntentController = exports.createPaymentIntentController = void 0;
+exports.transactionHistoryController = exports.confirmPaymentController = exports.createFullPaymentIntentController = exports.createPaymentIntentController = void 0;
 const payement_service_1 = require("./payement.service");
 // import { createPaymentIntent, confirmPayment } from '../services/paymentService';
 const createPaymentIntentController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,6 +22,7 @@ const createPaymentIntentController = (req, res) => __awaiter(void 0, void 0, vo
             });
         }
         const secret = yield payement_service_1.PayementService.createPaymentIntent(amount);
+        console.log(secret);
         res.status(200).json({
             success: true,
             message: 'Payment intent created successfully',
@@ -86,3 +87,19 @@ const confirmPaymentController = (req, res) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.confirmPaymentController = confirmPaymentController;
+const transactionHistoryController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const transaction = yield payement_service_1.PayementService.getTransactionHistory(5);
+        return res.status(200).json({
+            success: true,
+            data: transaction
+        });
+    }
+    catch (_a) {
+        res.status(500).json({
+            success: false,
+            message: `Error to get transaction history `,
+        });
+    }
+});
+exports.transactionHistoryController = transactionHistoryController;

@@ -1,10 +1,14 @@
 "use strict";
-const mongoose = require('mongoose');
-const PaymentSchema = new mongoose.Schema({
-    amount: { type: Number, required: true },
-    paymentMethodId: { type: String, required: true },
-    paymentIntentId: { type: String, required: true },
-    status: { type: String, required: true },
-}, { timestamps: true });
-const Payment = mongoose.model('Payment', PaymentSchema);
-module.exports = Payment;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PaymentModel = void 0;
+const mongoose_1 = require("mongoose");
+const BikePayment = new mongoose_1.Schema({
+    name: { type: String, },
+    email: { type: String, },
+    BDT: { type: Number, },
+    paymentIntentId: { type: String },
+    status: { type: String, default: 'pending' },
+}, {
+    timestamps: true,
+});
+exports.PaymentModel = (0, mongoose_1.model)('bike_Payment', BikePayment);

@@ -10,4 +10,5 @@ const router = express_1.default.Router();
 router.post('/create-payment-intent', payement_controller_1.createPaymentIntentController);
 router.post('/create-full-payment-intent', payement_controller_1.createFullPaymentIntentController);
 router.post('/confirm-payment', payement_controller_1.confirmPaymentController);
+router.get('/payment-history', payement_controller_1.transactionHistoryController);
 exports.payemtRoute = router;
