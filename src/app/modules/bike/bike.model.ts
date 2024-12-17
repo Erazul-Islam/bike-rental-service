@@ -1,5 +1,17 @@
 import { Schema, model } from "mongoose";
-import { TBike } from "./bike.interface";
+import { TBike, TImage } from "./bike.interface";
+
+const photoSchema = new Schema<TImage>(
+    {
+        image : {
+            type : String,
+            required : true
+        }
+    },
+    {
+        timestamps : true
+    }
+)
 
 
 const BikeSchema = new Schema<TBike>(
@@ -29,7 +41,7 @@ const BikeSchema = new Schema<TBike>(
             required: true
         },
         image: {
-            type: String,
+            type: [photoSchema],
             required: true
         },
         brand: {

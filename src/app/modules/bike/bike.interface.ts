@@ -1,6 +1,6 @@
 export type TBike = {
     name: string,
-    image: string,
+    image: TImage[],
     description: string,
     pricePerHour: number,
     cc: number,
@@ -9,3 +9,7 @@ export type TBike = {
     brand: string,
     isAvailable:boolean
 };
+
+export type TImage = {
+    image : string
+}
