@@ -19,6 +19,7 @@ const user_model_1 = require("../user/user.model");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const cart_model_1 = require("./cart.model");
 const AddtoCart = (payload, token, id) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const find = yield bike_model_1.BikeModel.findOne({ _id: id });
     console.log(find);
     const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwtAccessSecret);
@@ -32,7 +33,6 @@ const AddtoCart = (payload, token, id) => __awaiter(void 0, void 0, void 0, func
     const cc = find === null || find === void 0 ? void 0 : find.cc;
     const year = find === null || find === void 0 ? void 0 : find.cc;
     const model = find === null || find === void 0 ? void 0 : find.model;
-    const image = find === null || find === void 0 ? void 0 : find.image;
     const isAvailable = find === null || find === void 0 ? void 0 : find.isAvailable;
     const finduser = yield user_model_1.User.findOne({ email: decoded.email });
     const userId = finduser === null || finduser === void 0 ? void 0 : finduser._id;
@@ -46,7 +46,7 @@ const AddtoCart = (payload, token, id) => __awaiter(void 0, void 0, void 0, func
     payload.cc = cc;
     payload.year = year;
     payload.model = model;
-    payload.image = image;
+    payload.image = (_a = find === null || find === void 0 ? void 0 : find.image) === null || _a === void 0 ? void 0 : _a.map(img => img.image);
     payload.isAvailable = isAvailable;
     const result = cart_model_1.CartModel.create(payload);
     return result;

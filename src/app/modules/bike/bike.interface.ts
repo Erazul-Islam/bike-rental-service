@@ -1,6 +1,6 @@
 export type TBike = {
     name: string,
-    image: TImage[],
+    image: string,
     description: string,
     pricePerHour: number,
     cc: number,

@@ -41,7 +41,7 @@ const BikeSchema = new Schema<TBike>(
             required: true
         },
         image: {
-            type: [photoSchema],
+            type: String,
             required: true
         },
         brand: {
