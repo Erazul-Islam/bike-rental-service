@@ -28,6 +28,7 @@ const userSchema = new mongoose_1.Schema({
     role: {
         type: String,
         enum: ['user', 'admin'],
+        default: 'user'
     },
     email: {
         type: String,
@@ -37,10 +38,22 @@ const userSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String,
+        required: true
+    },
     address: {
         type: String,
         required: true
     },
+    country: {
+        type: String,
+        default: "USA"
+    },
+    city: {
+        type: String,
+        default: "California"
+    }
 }, {
     timestamps: true,
 });

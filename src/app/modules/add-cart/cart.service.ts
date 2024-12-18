@@ -21,7 +21,7 @@ const AddtoCart = async (payload: TCart, token: string, id: string) => {
     const cc = find?.cc
     const year = find?.cc
     const model = find?.model
-    const image = find?.image
+    const image = find?.image?.[0]?.image
     const isAvailable = find?.isAvailable
 
     const finduser = await User.findOne({ email: decoded.email })
@@ -32,11 +32,11 @@ const AddtoCart = async (payload: TCart, token: string, id: string) => {
     payload.brand = brand
     payload.name = name
     payload.description = description,
-        payload.pricePerHour = pricePerHour
+    payload.pricePerHour = pricePerHour
     payload.cc = cc
     payload.year = year
     payload.model = model
-    payload.image = image
+    payload.image = find?.image?.map(img => img.image)
     payload.isAvailable = isAvailable
 
     const result = CartModel.create(payload)

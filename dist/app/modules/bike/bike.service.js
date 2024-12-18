@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BikeService = void 0;
 const bike_model_1 = require("./bike.model");
 const addBike = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(payload);
     const result = yield bike_model_1.BikeModel.create(payload);
     return result;
 });

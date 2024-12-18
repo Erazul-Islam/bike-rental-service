@@ -1,9 +1,11 @@
+import { TImage } from "../bike/bike.interface"
+
 export type TCart = {
     _id: string,
     userId: Object | undefined,
     userEmail: string | undefined,
     name: string | undefined,
-    image: string | undefined,
+    image: string[] | undefined,
     description: string | undefined,
     pricePerHour: number | undefined,
     cc: number | undefined,

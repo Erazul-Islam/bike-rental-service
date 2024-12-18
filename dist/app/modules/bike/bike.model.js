@@ -2,6 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BikeModel = void 0;
 const mongoose_1 = require("mongoose");
+const photoSchema = new mongoose_1.Schema({
+    image: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true
+});
 const BikeSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -28,7 +36,7 @@ const BikeSchema = new mongoose_1.Schema({
         required: true
     },
     image: {
-        type: String,
+        type: [photoSchema],
         required: true
     },
     brand: {

@@ -62,11 +62,14 @@ const getUpdatedUserRole = (id) => __awaiter(void 0, void 0, void 0, function* (
         console.log(error);
     }
 });
-const getUpdatedUser = (token, payload) => __awaiter(void 0, void 0, void 0, function* () {
+const getUpdatedUser = (token, payload, imageUrl) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwtAccessSecret);
         if (typeof decoded === 'string' || !('email' in decoded)) {
             throw new Error('Invalid token structure');
+        }
+        if (imageUrl) {
+            payload.image = imageUrl;
         }
         const userEmail = decoded.email;
         const updatedUser = yield user_model_1.User.findOneAndUpdate({ email: userEmail }, payload, { new: true });

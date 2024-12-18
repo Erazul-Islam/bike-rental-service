@@ -17,7 +17,8 @@ const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const user_service_1 = require("./user.service");
 const signUpRegistration = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield user_service_1.userService.signUp(req.body);
+    var _a;
+    const result = yield user_service_1.userService.signUp(Object.assign(Object.assign({}, JSON.parse(req.body.data)), { image: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path }));
     (0, sendResponse_1.default)(res, {
         statusCode: 201,
         status: 201,
@@ -63,9 +64,9 @@ const getUpdatedUserRole = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _b;
     try {
-        const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
+        const token = (_b = req.headers.authorization) === null || _b === void 0 ? void 0 : _b.split(' ')[1];
         const result = yield user_service_1.userService.getMyProfile(token);
         res.status(200).json({
             success: true,
@@ -78,11 +79,14 @@ const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 const getUpdatedUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
-    const token = (_b = req.headers.authorization) === null || _b === void 0 ? void 0 : _b.split(' ')[1];
+    var _c;
+    const token = (_c = req.headers.authorization) === null || _c === void 0 ? void 0 : _c.split(' ')[1];
     const updatedData = req.body;
+    const imageFile = req.file;
     try {
-        const updatedUser = yield user_service_1.userService.getUpdatedUser(token, updatedData);
+        const imageUrl = imageFile === null || imageFile === void 0 ? void 0 : imageFile.path;
+        console.log(imageUrl);
+        const updatedUser = yield user_service_1.userService.getUpdatedUser(token, updatedData, imageUrl);
         console.log(updatedUser);
         res.status(200).json({
             success: true,

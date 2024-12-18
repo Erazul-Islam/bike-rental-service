@@ -14,4 +14,7 @@ exports.default = {
     jwtRefressSecret: process.env.JWT_Refress_SECRET,
     JWT_ACCESS_EXPIRES_IN: process.env.JWT_ACCESS_EXPIRES_IN,
     JWT_REFRESS_EXPIRES_IN: process.env.JWT_REFRESS_EXPIRES_IN,
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_Api_Key,
+    secret_key: process.env.CLOUDINARY_Api_Secret
 };

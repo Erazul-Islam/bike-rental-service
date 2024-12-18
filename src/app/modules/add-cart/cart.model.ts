@@ -38,7 +38,7 @@ const CartSchema = new Schema<TCart>(
             required: true
         },
         image: {
-            type: String,
+            type: String ,
             required: true
         },
         brand: {
