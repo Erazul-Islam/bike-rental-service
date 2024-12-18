@@ -17,9 +17,10 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const bike_service_1 = require("./bike.service");
 const AddingBike = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const images = req.files;
-    const imageArray = images.map((file) => ({ image: file.path }));
-    const result = yield bike_service_1.BikeService.addBike(Object.assign(Object.assign({}, JSON.parse(req.body.data)), { image: imageArray }));
+    var _a;
+    console.log("file", req.file);
+    console.log(req.body);
+    const result = yield bike_service_1.BikeService.addBike(Object.assign(Object.assign({}, JSON.parse(req.body.data)), { image: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path }));
     (0, sendResponse_1.default)(res, {
         statusCode: 200,
         status: 200,

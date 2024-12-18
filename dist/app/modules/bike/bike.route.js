@@ -12,7 +12,7 @@ const auth_1 = __importDefault(require("../middleWares/auth"));
 const user_constant_1 = require("../user/user.constant");
 const multer_config_1 = require("../../config/multer.config");
 const router = express_1.default.Router();
-router.post('/', (0, validateRequest_1.default)(bike_validation_1.BikeValidation.BikeValidationSchema), (0, auth_1.default)(user_constant_1.USER_ROLE.admin), multer_config_1.multerUpload.array('image', 5), bike_controller_1.bikeController.AddingBike);
+router.post('/', (0, validateRequest_1.default)(bike_validation_1.BikeValidation.BikeValidationSchema), (0, auth_1.default)(user_constant_1.USER_ROLE.admin), multer_config_1.multerUpload.single('image'), bike_controller_1.bikeController.AddingBike);
 router.put('/:bikeId', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), bike_controller_1.bikeController.getUpdatedBike);
 router.delete('/:bikeId', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), bike_controller_1.bikeController.deleteSingleBike);
 router.patch("/:bikeId/availability", bike_controller_1.bikeController.updateBikeAvailability);

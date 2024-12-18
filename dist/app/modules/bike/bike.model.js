@@ -36,7 +36,7 @@ const BikeSchema = new mongoose_1.Schema({
         required: true
     },
     image: {
-        type: [photoSchema],
+        type: String,
         required: true
     },
     brand: {

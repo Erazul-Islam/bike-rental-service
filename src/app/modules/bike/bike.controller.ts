@@ -7,10 +7,6 @@ import { BikeService } from "./bike.service"
 
 const AddingBike = catchAsync(async (req: Request, res: Response) => {
 
-    console.log("file",req.file)
-
-    console.log(req.body)
-
     const result = await BikeService.addBike({
         ...JSON.parse(req.body.data),
         image : req.file?.path
@@ -61,9 +57,16 @@ const getSingleBike = async (req: Request, res: Response) => {
 const getUpdatedBike = async (req: Request, res: Response) => {
     const bikeId = req.params.bikeId
     const updatedData = req.body
+    console.log(updatedData)
+    const imageFile = req.file
+    console.log(imageFile)
 
     try {
-        const updatedBike = await BikeService.getUpdatedBikeFromDB(bikeId, updatedData)
+
+        const imageUrl = imageFile?.path
+        console.log(imageUrl)
+
+        const updatedBike = await BikeService.getUpdatedBikeFromDB(bikeId, updatedData,imageUrl)
 
         res.status(200).json({
             success: true,

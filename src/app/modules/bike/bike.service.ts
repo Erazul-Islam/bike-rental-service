@@ -14,8 +14,13 @@ const getAllBikeFromDB = async () => {
     return result
 }
 
-const getUpdatedBikeFromDB = async (id: string, payload: Partial<TBike>) => {
+const getUpdatedBikeFromDB = async (id: string, payload: Partial<TBike>, imageUrl?: string) => {
     try {
+
+        if (imageUrl) {
+            payload.image = imageUrl;
+        }
+
         const updatedProduct = await BikeModel.findOneAndUpdate({ _id: id }, payload, { new: true })
         return updatedProduct
     } catch (error) {

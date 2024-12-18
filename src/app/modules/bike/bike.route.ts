@@ -15,7 +15,7 @@ router.post(
     bikeController.AddingBike,
 );
 
-router.put('/:bikeId', authValidation(USER_ROLE.admin), bikeController.getUpdatedBike)
+router.put('/:bikeId', authValidation(USER_ROLE.admin), multerUpload.single("image") , bikeController.getUpdatedBike)
 
 router.delete('/:bikeId',authValidation(USER_ROLE.admin), bikeController.deleteSingleBike)
 

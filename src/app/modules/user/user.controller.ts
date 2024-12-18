@@ -83,7 +83,6 @@ const getUpdatedUser = async (req: Request, res: Response) => {
     try {
 
         const imageUrl = imageFile?.path
-        console.log(imageUrl)
 
         const updatedUser = await userService.getUpdatedUser(token as string, updatedData, imageUrl)
         console.log(updatedUser)
