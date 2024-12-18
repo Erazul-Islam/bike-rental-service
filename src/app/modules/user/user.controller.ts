@@ -78,12 +78,12 @@ const getProfile = async (req: Request, res: Response) => {
 const getUpdatedUser = async (req: Request, res: Response) => {
     const token = req.headers.authorization?.split(' ')[1]
     const updatedData = req.body
-    const imageFile = req.file 
-    console.log(imageFile)
+    const imageFile = req.file
 
     try {
 
         const imageUrl = imageFile?.path
+        console.log(imageUrl)
 
         const updatedUser = await userService.getUpdatedUser(token as string, updatedData, imageUrl)
         console.log(updatedUser)

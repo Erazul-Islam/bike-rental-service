@@ -34,6 +34,15 @@ const userSchema = new Schema<TUser, UserModel>(
             type: String,
             required: true
         },
+        country : {
+            type : String,
+            default : "USA"
+        },
+        city : {
+            type : String,
+            default : "California"
+        }
+
     },
     {
         timestamps: true,

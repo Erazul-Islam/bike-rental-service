@@ -9,6 +9,8 @@ export interface TUser {
     phone: string,
     image : string
     address: string,
+    country : string,
+    city : string
     createdAt: Date,
     updatedAt: Date,
     role: 'admin' | 'user'

@@ -74,7 +74,7 @@ const getUpdatedUser = async (token: string, payload: Partial<TUser>, imageUrl? 
         }
 
         if (imageUrl) {
-            payload.photo = imageUrl;
+            payload.image = imageUrl;
         }
 
         const userEmail = decoded.email
