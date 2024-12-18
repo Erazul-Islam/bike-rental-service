@@ -5,14 +5,13 @@ import { bikeController } from './bike.controller';
 import authValidation from '../middleWares/auth';
 import { USER_ROLE } from '../user/user.constant';
 import { multerUpload } from '../../config/multer.config';
-// import authValidation from '../middleWares/auth';
 
 const router = express.Router();
 
 router.post(
     '/',
     validateRequest(BikeValidation.BikeValidationSchema), authValidation(USER_ROLE.admin),
-    multerUpload.single('image'),
+    multerUpload.array('image',5),
     bikeController.AddingBike,
 );
 

@@ -16,6 +16,7 @@ const userSchema = new Schema<TUser, UserModel>(
         role: {
             type: String,
             enum: ['user', 'admin'],
+            default : 'user'
         },
         email: {
             type: String,
@@ -24,6 +25,10 @@ const userSchema = new Schema<TUser, UserModel>(
         phone: {
             type: String,
             required: true
+        },
+        image : {
+            type  : String,
+            required : true
         },
         address: {
             type: String,

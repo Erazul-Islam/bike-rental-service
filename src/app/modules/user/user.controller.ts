@@ -1,11 +1,14 @@
-import httpStatus from "http-status"
 import sendResponse from "../../utils/sendResponse"
 import { Request, Response } from "express"
 import catchAsync from "../../utils/catchAsync"
 import { userService } from "./user.service"
 
 const signUpRegistration = catchAsync(async (req: Request, res: Response) => {
-    const result = await userService.signUp(req.body)
+
+    const result = await userService.signUp({
+        ...JSON.parse(req.body.data),
+        image: req.file?.path
+    })
     sendResponse(res, {
         statusCode: 201,
         status: 201,
@@ -75,9 +78,14 @@ const getProfile = async (req: Request, res: Response) => {
 const getUpdatedUser = async (req: Request, res: Response) => {
     const token = req.headers.authorization?.split(' ')[1]
     const updatedData = req.body
+    const imageFile = req.file 
+    console.log(imageFile)
 
     try {
-        const updatedUser = await userService.getUpdatedUser(token as string, updatedData)
+
+        const imageUrl = imageFile?.path
+
+        const updatedUser = await userService.getUpdatedUser(token as string, updatedData, imageUrl)
         console.log(updatedUser)
 
         res.status(200).json({

@@ -65,12 +65,16 @@ const getUpdatedUserRole = async (id: string) => {
     }
 }
 
-const getUpdatedUser = async (token: string, payload: Partial<TUser>) => {
+const getUpdatedUser = async (token: string, payload: Partial<TUser>, imageUrl? : string) => {
     try {
         const decoded = jwt.verify(token, config.jwtAccessSecret as string)
 
         if (typeof decoded === 'string' || !('email' in decoded)) {
             throw new Error('Invalid token structure');
+        }
+
+        if (imageUrl) {
+            payload.photo = imageUrl;
         }
 
         const userEmail = decoded.email

@@ -7,11 +7,15 @@ import { BikeService } from "./bike.service"
 
 const AddingBike = catchAsync(async (req: Request, res: Response) => {
   
+    const images = req.files as Express.Multer.File[]
+    const imageArray = images.map((file) => ({image : file.path}))
+
 
     const result = await BikeService.addBike({
         ...JSON.parse(req.body.data),
-        image : req.file?.path
+        image : imageArray
     })
+
     sendResponse(res, {
         statusCode: 200,
         status: 200,

@@ -3,6 +3,7 @@ import { BikeModel } from "./bike.model"
 
 
 const addBike = async (payload: TBike) => {
+    console.log(payload)
     const result = await BikeModel.create(payload)
     return result
 }

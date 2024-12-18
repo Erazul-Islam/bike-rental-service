@@ -7,6 +7,7 @@ export interface TUser {
     email: string,
     password: string,
     phone: string,
+    image : string
     address: string,
     createdAt: Date,
     updatedAt: Date,
