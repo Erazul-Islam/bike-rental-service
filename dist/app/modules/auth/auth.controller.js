@@ -23,6 +23,9 @@ const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         email: result.user.email,
         phone: result.user.phone,
         address: result.user.address,
+        country: result.user.country,
+        city: result.user.city,
+        image: result.user.image,
         role: result.user.role,
     };
     res.status(200).json({

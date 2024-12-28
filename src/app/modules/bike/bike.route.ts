@@ -11,7 +11,6 @@ const router = express.Router();
 router.post(
     '/',
     validateRequest(BikeValidation.BikeValidationSchema), authValidation(USER_ROLE.admin),
-    multerUpload.single('image'),
     bikeController.AddingBike,
 );
 

@@ -7,10 +7,7 @@ import { BikeService } from "./bike.service"
 
 const AddingBike = catchAsync(async (req: Request, res: Response) => {
 
-    const result = await BikeService.addBike({
-        ...JSON.parse(req.body.data),
-        image : req.file?.path
-    })
+    const result = await BikeService.addBike(req.body)
 
     sendResponse(res, {
         statusCode: 200,
@@ -59,7 +56,6 @@ const getUpdatedBike = async (req: Request, res: Response) => {
     const updatedData = req.body
     console.log(updatedData)
     const imageFile = req.file
-    console.log(imageFile)
 
     try {
 

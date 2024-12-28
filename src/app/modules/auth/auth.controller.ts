@@ -11,6 +11,9 @@ const loginUser = catchAsync(async (req, res) => {
         email: result.user.email,
         phone: result.user.phone,
         address: result.user.address,
+        country : result.user.country,
+        city : result.user.city,
+        image : result.user.image,
         role: result.user.role,
     };
 

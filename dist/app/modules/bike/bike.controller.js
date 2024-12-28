@@ -17,10 +17,7 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const bike_service_1 = require("./bike.service");
 const AddingBike = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    console.log("file", req.file);
-    console.log(req.body);
-    const result = yield bike_service_1.BikeService.addBike(Object.assign(Object.assign({}, JSON.parse(req.body.data)), { image: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path }));
+    const result = yield bike_service_1.BikeService.addBike(req.body);
     (0, sendResponse_1.default)(res, {
         statusCode: 200,
         status: 200,
@@ -63,8 +60,12 @@ const getSingleBike = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 const getUpdatedBike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bikeId = req.params.bikeId;
     const updatedData = req.body;
+    console.log(updatedData);
+    const imageFile = req.file;
     try {
-        const updatedBike = yield bike_service_1.BikeService.getUpdatedBikeFromDB(bikeId, updatedData);
+        const imageUrl = imageFile === null || imageFile === void 0 ? void 0 : imageFile.path;
+        console.log(imageUrl);
+        const updatedBike = yield bike_service_1.BikeService.getUpdatedBikeFromDB(bikeId, updatedData, imageUrl);
         res.status(200).json({
             success: true,
             message: "Bike updated successfully!",

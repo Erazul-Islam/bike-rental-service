@@ -85,7 +85,6 @@ const getUpdatedUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const imageFile = req.file;
     try {
         const imageUrl = imageFile === null || imageFile === void 0 ? void 0 : imageFile.path;
-        console.log(imageUrl);
         const updatedUser = yield user_service_1.userService.getUpdatedUser(token, updatedData, imageUrl);
         console.log(updatedUser);
         res.status(200).json({
