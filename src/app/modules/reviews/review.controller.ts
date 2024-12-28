@@ -6,7 +6,10 @@ import sendResponse from "../../utils/sendResponse"
 
 const AddingReview = catchAsync(async (req: Request, res: Response) => {
 
-    const result = await reviewService.addReview(req.body)
+    const id = req.params.userId
+    const token = req.headers.authorization?.split(' ')[1];
+
+    const result = await reviewService.addReview(req.body,token as string, id)
 
     sendResponse(res, {
         statusCode: 200,

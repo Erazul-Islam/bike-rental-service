@@ -4,7 +4,25 @@ import { TReview } from "./review.interface"
 import { reviewModel } from "./review.model"
 import jwt from 'jsonwebtoken'
 
-const addReview = async (payload: TReview) => {
+const addReview = async (payload: TReview, token: string, id: string) => {
+    const find = await User.findOne({ _id: id })
+        console.log(find)
+
+        const decoded = jwt.verify(token, config.jwtAccessSecret as string)
+    
+        if (typeof decoded === 'string' || !('email' in decoded)) {
+            throw new Error('Invalid token structure');
+        }
+
+        const userName = find?.userName
+        const userId = find?._id?.toString()
+        const userImage = find?.userImage
+
+        payload.userName = userName,
+        payload.userId = userId,
+        payload.userImage = userImage
+    
+        
     const result = await reviewModel.create(payload)
     return result
 }

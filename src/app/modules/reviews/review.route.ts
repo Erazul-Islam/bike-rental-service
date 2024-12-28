@@ -4,7 +4,7 @@ import { reviewController } from './review.controller';
 const router = express.Router();
 
 router.post(
-    '/',
+    '/:userId',
     reviewController.AddingReview,
 );
 router.get(
