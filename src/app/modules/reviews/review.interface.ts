@@ -1,6 +1,7 @@
-export type TReview =  {
-    userName : string,
-    userId : string,
-    content : string,
-    star : number
+export type TReview = {
+    userName: string,
+    userImage: string
+    userId: string,
+    content: string,
+    star: number
 }
